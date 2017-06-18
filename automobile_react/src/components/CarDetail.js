@@ -19,7 +19,7 @@ class CarDetail extends Component{
     this.state = {btnMoveDisabled: false};
   }
 
-  handleDialog(dialogOpen){
+  handleDialog(){
     const { dialogTrigger, selectCar, car} = this.props;
     dialogTrigger(true);
     selectCar(car)
@@ -27,7 +27,7 @@ class CarDetail extends Component{
 
   handleMoveCar(direction){
     const { mutate, car, selected_color } = this.props;
-    this.setState({btnMoveDisabled: true})
+    this.setState({btnMoveDisabled: true});
     mutate({
       variables:{ carID: car.id, direction },
       refetchQueries: [{ query, variables: {colorId: selected_color} }]
@@ -66,7 +66,7 @@ class CarDetail extends Component{
               </FloatingActionButton>
               <FloatingActionButton mini={true}
                 disabled={this.state.btnMoveDisabled}
-                onTouchTap={this.handleDialog.bind(this, true)}
+                onTouchTap={this.handleDialog.bind(this)}
                 className="margin-5"
                 >
                 <FontIcon className="material-icons">more_vert</FontIcon>

@@ -12,7 +12,11 @@ import query from "../queries/CarByColor"
 class CarDialog extends Component{
   constructor(props){
     super(props);
-    this.state = { open: props.car_dialog_open, input: 0, errors: ""}
+    this.state = {
+      open: props.car_dialog_open,
+      input: 0,
+      errors: ""
+    }
   }
 
   componentWillUpdate(nextProps){
@@ -23,6 +27,9 @@ class CarDialog extends Component{
 
   handleDialog(open){
     this.props.dialogTrigger(open);
+    if(!open){
+      this.setState({input: 0, errors: ""})
+    }
   };
 
   handleSubmit(event){
@@ -34,13 +41,12 @@ class CarDialog extends Component{
         variables: { id: selected_car.id, slotNumber: input },
         refetchQueries: [{ query, variables: {colorId: selected_color} }]
       }).then(
-        ({ data })=>{
+        ({ data })=> {
           if(data.moveCarSlotExplicit.validationError){
             this.setState({
               errors: data.moveCarSlotExplicit.validationError
             });
           } else {
-            this.setState({input: 0, errors: ""})
             this.handleDialog(false);
           }
         }
@@ -58,7 +64,7 @@ class CarDialog extends Component{
     return(
       <div>
         <Dialog
-          title={`Edit ${selected_car.name} Slot Location`}
+          title={`Exchange ${selected_car.name} Slot Location`}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleDialog.bind(this, false)}
@@ -66,6 +72,7 @@ class CarDialog extends Component{
           <p>Slot Number: {selected_car.slotNumber}</p>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <TextField
+              floatingLabelText="Slot Location"
               hintText="Desired Slot Location"
               fullWidth={true}
               type={'number'}
@@ -80,12 +87,12 @@ class CarDialog extends Component{
               primary={true}
               type="submit"
             />
+            <FlatButton
+              label="Cancel"
+              primary={true}
+              onTouchTap={this.handleDialog.bind(this, false)}
+            />
           </form>
-          <FlatButton
-            label="Cancel"
-            primary={true}
-            onTouchTap={this.handleDialog.bind(this, false)}
-          />
         </Dialog>
       </div>
     )

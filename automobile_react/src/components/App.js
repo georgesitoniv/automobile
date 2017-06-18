@@ -14,7 +14,6 @@ class App extends Component{
         <div>
           <AppBar
             title="Automobile"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
           <div className="container">
             <DropdownColor/>
