@@ -29,10 +29,11 @@
   })
 
   function displayCars(value){
+    console.log(value)
     if(value == "All" || value == null){
       getAllCars();
     } else {
-      getCarsByColor(parseInt(value));
+      getCarsByColor(value);
     }
   }
 
@@ -64,7 +65,7 @@
     $.ajax({
       url: '{% url "cars:cars_by_color" %}',
       data:{
-        id:id
+        id: id
       },
       type: "GET",
       dataType: "json",

@@ -15,7 +15,6 @@ def get_all_colors(request):
         context.append({
             u"id": color.id,
             u"name": color.name,
-            u"hex_code": color.hex_code
         })
     return JsonResponse(context, safe=False)
 

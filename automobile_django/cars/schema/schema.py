@@ -7,7 +7,7 @@ from cars.models import Car, Color
 class Mutation(graphene.AbstractType):
     move_car_slot = MoveCarSlot.Field()
     move_car_slot_explicit = MoveCarSlotExplicit.Field()
-    
+
 class Query(graphene.AbstractType):
     all_cars = graphene.List(CarType)
     all_colors = graphene.List(ColorType)
@@ -48,7 +48,7 @@ class Query(graphene.AbstractType):
         color_id = args.get('color_id')
 
         if color_id is not None:
-            if color_id != "All" and color_id != "":
+            if color_id.lower() != "all" and color_id != "":
                 try:
                     color = Color.objects.prefetch_related("cars").\
                         get(id=color_id)

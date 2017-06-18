@@ -30,13 +30,13 @@ class MoveCarSlot(graphene.Mutation):
 
 class MoveCarSlotExplicit(graphene.Mutation):
     """
-    Moves car slot number up or down. Requires the id of the car being moved
-    and the direction of the movement. The direction must be a postive or a
-    negative integer.
+    Moves car at a scpecific slot number. Requires the id of the car being moved
+    and the desired slot number.
     """
     class Input:
         id = graphene.ID()
         slot_number = graphene.Int()
+
     car = graphene.Field(CarType)
     validation_error = graphene.String()
 
@@ -57,7 +57,7 @@ class MoveCarSlotExplicit(graphene.Mutation):
             else:
                 return MoveCarSlotExplicit(
                     validation_error=
-                        "Desired slot Number execeeded current slot numbers"
+                        "Desired slot number execeeded current slot numbers"
                         )
         else:
             return MoveCarSlotExplicit(
