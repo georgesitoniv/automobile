@@ -16,3 +16,9 @@ Technology Used
     Redux,
     GraphQL,
     Apollo Client
+
+Solution for the Constraints
+  The developer added a slot number field for every Car Model. When the slot number of the selected Car Instance is increased,
+  decreased, or changed, the selected Car Instance exchanges slot numbers with the Car Instance which has the desired
+  slot number. This method limits the record updates into two queries.
+  
