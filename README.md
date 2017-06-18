@@ -8,11 +8,11 @@ technologies cited below, this method requires both the Django local server and 
 Technology Used
 
   Back End:
-    Django Web Framework
+    Django Web Framework,
     Graphene
 
-  Front End
-    React JS
-    Redux
-    GraphQL
+  Front End:
+    React JS,
+    Redux,
+    GraphQL,
     Apollo Client
