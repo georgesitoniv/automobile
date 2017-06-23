@@ -19,14 +19,14 @@ def get_all_colors(request):
     return JsonResponse(context, safe=False)
 
 def get_all_cars(request):
-    cars = Car.objects.order_by('slot_number').select_related('color')
+    cars = Car.objects.select_related('color')
     context = []
     for car in cars:
         context.append({
             u"id":car.id,
             u"name": car.name,
             u"color_name": car.color.name,
-            u"slot_number": car.slot_number
+            u"slot_number": car.order + 1
         })
     return JsonResponse(context, safe=False)
 
@@ -34,12 +34,12 @@ def get_cars_by_color(request):
     id = request.GET.get('id')
     color = Color.objects.prefetch_related("cars").get(id=id)
     context = []
-    for car in color.cars.all().order_by('slot_number'):
+    for car in color.cars.all():
         context.append({
             u"id":car.id,
             u"name": car.name,
             u"color_name": car.color.name,
-            u"slot_number": car.slot_number
+            u"slot_number": car.order + 1
         })
     return JsonResponse(context, safe=False)
 
@@ -47,24 +47,8 @@ def move_car(request):
     id = request.GET.get('id')
     direction = int(request.GET.get('direction'))
     car = Car.objects.get(id=id)
-    slot_number = int(car.slot_number + direction)
-    if isValid(car, direction):
-        car_partner = Car.objects.get(slot_number=slot_number)
-        car_partner.slot_number = car.slot_number
-        car.slot_number = slot_number
-        car_partner.save()
-        car.save()
+    if(direction < 0):
+        car.up()
+    else:
+        car.down()
     return JsonResponse({}, safe=False)
-
-def isValid(car, direction):
-    if direction < 0:
-        if car.slot_number > 1:
-            return True
-        else:
-            return False
-    elif direction > 0:
-        car_count = Car.objects.count()
-        if car.slot_number < car_count:
-            return True
-        else:
-            return False

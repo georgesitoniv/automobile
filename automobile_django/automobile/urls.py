@@ -5,6 +5,6 @@ from .schema import schema
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^django_views/', include('cars.urls', namespace="cars")),
+    url(r'^', include('cars.urls', namespace="cars")),
     url(r'^graphql/', GraphQLView.as_view(graphiql=True, schema=schema))
 ]

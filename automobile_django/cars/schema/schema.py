@@ -25,7 +25,7 @@ class Query(graphene.AbstractType):
     )
 
     def resolve_all_cars(self, args, context, info):
-        return Car.objects.select_related("color").order_by('slot_number').all()
+        return Car.objects.select_related("color").all()
 
     def resolve_all_colors(self, args, context, info):
         return Color.objects.prefetch_related("cars").all()
@@ -52,7 +52,7 @@ class Query(graphene.AbstractType):
                 try:
                     color = Color.objects.prefetch_related("cars").\
                         get(id=color_id)
-                    return color.cars.order_by('slot_number').all()
+                    return color.cars.all()
                 except:
                     pass
-        return Car.objects.select_related("color").order_by('slot_number').all()
+        return Car.objects.select_related("color").all()
