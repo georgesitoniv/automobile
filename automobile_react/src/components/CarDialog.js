@@ -38,7 +38,7 @@ class CarDialog extends Component{
     const { selected_car, selected_color } = this.props;
     if(input != "" && input != 0 && input > 0){
       this.props.mutate({
-        variables: { id: selected_car.id, slotNumber: input },
+        variables: { id: selected_car.id, slotNumber: (input - 1) },
         refetchQueries: [{ query, variables: {colorId: selected_color} }]
       }).then(
         ({ data })=> {
@@ -64,7 +64,7 @@ class CarDialog extends Component{
     return(
       <div>
         <Dialog
-          title={`Exchange ${selected_car.name} Slot Location`}
+          title={`Move ${selected_car.name} Slot Location`}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleDialog.bind(this, false)}

@@ -41,7 +41,7 @@ class CarDetail extends Component{
         <Card expanded={true} >
           <CardHeader
             title={car.name}
-            subtitle={`Slot Number: ${car.slotNumber}`}
+            subtitle={`Slot Number: ${car.order + 1}`}
             onClick={()=>console.log("click div")}
           />
           <CardText>

@@ -6,7 +6,7 @@ export default gql`
       car{
         id
         name
-        slotNumber
+        order
       }
     }
   }

@@ -5,7 +5,7 @@ export default gql`
     carByColor(colorId: $colorId) {
       id
       name
-      slotNumber
+      order
       color{
         id
         name
